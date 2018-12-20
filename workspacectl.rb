@@ -31,6 +31,9 @@ OptionParser.new do |opts|
     puts opts
     exit
   end
+  opts.on("-k", "--keep", "Keeps existing applications open") do
+    options[:keep] = true
+  end
 end.parse!
 
 ws = ARGV.pop
@@ -41,10 +44,10 @@ raise "Config not specified at #{CONFIG}" unless File.exists?(CONFIG)
 begin
   workspaces = read_config(CONFIG)
   raise "Workspace [#{ws}] not defined in Config" unless workspaces.has_key?(ws)
-  clear
+  clear unless options[:keep]
   workspaces[ws].each do |app|
-    output = open(app)
-    puts output if options[:verbose]
+    open(app)
+    puts "Launching #{app}" if options[:verbose]
   end
 rescue Psych::SyntaxError => ex
   raise ex.message
