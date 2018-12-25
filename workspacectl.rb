@@ -43,6 +43,10 @@ raise "Config not specified at #{CONFIG}" unless File.exists?(CONFIG)
 
 begin
   workspaces = read_config(CONFIG)
+  if ws == "clear"
+    clear
+    exit
+  end
   raise "Workspace [#{ws}] not defined in Config" unless workspaces.has_key?(ws)
   clear unless options[:keep]
   workspaces[ws].each do |app|
