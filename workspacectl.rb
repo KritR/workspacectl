@@ -1,7 +1,7 @@
 require 'yaml'
 require 'optparse'
 
-CONFIG = File.expand_path("~/.workspacectl/config.yml")
+CONFIG = File.expand_path("~/.config/wsctl/config.yml")
 
 def clear
   `pkill -u $(whoami)`
